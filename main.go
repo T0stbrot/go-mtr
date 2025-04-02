@@ -73,9 +73,17 @@ func main() {
 					res = ping.Ping4(target, hops, 1000)
 				}
 				hops++
-				if ipIs(res.LastHop) != 0 {
-					info = details(res.LastHop)
-					info.RTT = res.RTT+"ms"
+				ip, _ := netip.ParseAddr(res.LastHop)
+				if ip.IsValid() {
+					if ip.IsPrivate() {
+						info = Details{
+							IP: res.LastHop,
+							RTT: res.RTT+"ms",
+						}
+					} else {
+						info = details(res.LastHop)
+						info.RTT = res.RTT+"ms"
+					}
 				} else {
 					info = Details{
 						IP: res.Error,
