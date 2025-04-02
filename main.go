@@ -64,7 +64,7 @@ func main() {
 
 			hops := 0
 				
-			for hops <= 255 {
+			for hops < 256 {
 				var res ping.PingResult
 				var info Details
 				if ipIs(target) == 6 {
