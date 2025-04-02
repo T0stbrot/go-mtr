@@ -90,7 +90,11 @@ func main() {
 						RTT: "Timeout",
 					}
 				}
-				msg = fmt.Sprintf("[%2d] [%10s] [AS%6v] %v [%v]", hops-1, info.RTT, info.ASN, info.IP, info.Hostname)
+				var host string
+				if info.Hostname != "" {
+					host = "[" + info.Hostname + "]"
+				}
+				msg = fmt.Sprintf("[%2d] [%10s] [AS%6v] %v %v", hops-1, info.RTT, info.ASN, info.IP, host)
 				fmt.Println(msg)
 				if res.LastHop == target {
 					break
