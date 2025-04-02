@@ -35,7 +35,7 @@ func details(addr string) (details Details) {
 	return response
 }
 
-func ipIs(addr string) (is int) {
+func ipVer(addr string) (is int) {
 	ip, _ := netip.ParseAddr(addr)
 	if ip.Is6() {
 		return 6
@@ -55,7 +55,7 @@ func main() {
 	} else {
 		target := args[1]
 
-		if ipIs(target) == 0 {
+		if ipVer(target) == 0 {
 			fmt.Println("You need to provide a Valid Target Address")
 		} else {
 
@@ -67,7 +67,7 @@ func main() {
 			for hops < 256 {
 				var res ping.PingResult
 				var info Details
-				if ipIs(target) == 6 {
+				if ipVer(target) == 6 {
 					res = ping.Ping6(target, hops, 1000)
 				} else {
 					res = ping.Ping4(target, hops, 1000)
