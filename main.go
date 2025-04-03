@@ -56,8 +56,9 @@ func main() {
 		syscall.Exit(2)
 	} else {
 		target := args[0]
+		targetV := ipVer(target)
 
-		if ipVer(target) == 0 {
+		if targetV == 0 {
 			fmt.Println("You need to provide a Valid Target Address")
 			syscall.Exit(0)
 		} else {
@@ -70,7 +71,7 @@ func main() {
 			for hops < 256 {
 				var res ping.PingResult
 				var info Details
-				if ipVer(target) == 6 {
+				if targetV == 6 {
 					res = ping.Ping6(target, hops, 1000)
 				} else {
 					res = ping.Ping4(target, hops, 1000)
