@@ -1,7 +1,6 @@
 package main
 
 import (
-	"syscall"
 	"flag"
 	"fmt"
 	"net/netip"
@@ -22,7 +21,6 @@ func details(addr string) (details Details) {
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Error fetching from API")
-		syscall.Exit(1)
 	}
 	defer res.Body.Close()
 
@@ -30,7 +28,6 @@ func details(addr string) (details Details) {
 	err = json.NewDecoder(res.Body).Decode(&response)
 	if err != nil {
 		fmt.Println("Error decoding API JSON")
-		syscall.Exit(1)
 	}
 
 	return response
@@ -53,14 +50,12 @@ func main() {
 
 	if len(args) != 1 {
 		fmt.Println("You need to provide a Target Address")
-		syscall.Exit(2)
 	} else {
 		target := args[0]
 		targetV := ipVer(target)
 
 		if targetV == 0 {
 			fmt.Println("You need to provide a Valid Target Address")
-			syscall.Exit(0)
 		} else {
 
 			msg := fmt.Sprintf("Starting MTR to %v with 255 maximum hops", target)
@@ -102,7 +97,6 @@ func main() {
 				fmt.Println(msg)
 				if res.LastHop == target {
 					break
-					syscall.Exit(0)
 				}
 			}
 		}
