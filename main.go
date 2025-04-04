@@ -33,17 +33,6 @@ func details(addr string) (details Details) {
 	return response
 }
 
-func ipVer(addr string) (is int) {
-	ip, _ := netip.ParseAddr(addr)
-	if ip.Is6() {
-		return 6
-	} else if ip.Is4() {
-		return 4
-	} else {
-		return 0
-	}
-}
-
 func main() {
 	flag.Parse()
 	args := flag.Args()
@@ -51,10 +40,9 @@ func main() {
 	if len(args) != 1 {
 		fmt.Println("You need to provide a Target Address")
 	} else {
-		target := args[0]
-		targetV := ipVer(target)
+		target, _ := netip.ParseAddr(args[0])
 
-		if targetV == 0 {
+		if !target.IsValid() {
 			fmt.Println("You need to provide a Valid Target Address")
 		} else {
 
@@ -66,10 +54,10 @@ func main() {
 			for hops < 256 {
 				var res ping.PingResult
 				var info Details
-				if targetV == 6 {
-					res = ping.Ping6(target, hops, 1000)
+				if target.Is6() {
+					res = ping.Ping6(args[0], hops, 1000)
 				} else {
-					res = ping.Ping4(target, hops, 1000)
+					res = ping.Ping4(args[0], hops, 1000)
 				}
 				hops++
 				ip, _ := netip.ParseAddr(res.LastHop)
@@ -95,7 +83,7 @@ func main() {
 				}
 				msg = fmt.Sprintf("[%2d] [%10s] [AS%6v] %v %v", hops-1, info.RTT, info.ASN, info.IP, host)
 				fmt.Println(msg)
-				if res.LastHop == target {
+				if res.LastHop == args[0] {
 					break
 				}
 			}
