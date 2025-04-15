@@ -5,7 +5,7 @@ Features:
 - Very light and easy to install, just drag mtr.exe inside your System32 folder, then you can call it from any CMD.
 
 # It doesn't work for me, what do i do?
-Sometimes you need to allow ICMP(v6) trough Windows Firewall rules: ||run these in an administrator shell||
+Sometimes you need to allow ICMP(v6) trough Windows Firewall rules: <run these in an administrator shell>
 
 `netsh advfirewall firewall add rule name=AllowICMP protocol=ICMPv4 dir=in action=allow`
 
