@@ -16,9 +16,15 @@ type Details struct {
 	Hostname string `json:"hostname,omitempty"`
 }
 
+var api = &http.Client{}
+
 func details(addr string) (details Details) {
 	url := fmt.Sprintf("https://t0stbrot.net/pub-api/ip/%v", addr)
-	res, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Println("Error creating request for API")
+	}
+	res, err := api.Do(req)
 	if err != nil {
 		fmt.Println("Error fetching from API")
 	}
