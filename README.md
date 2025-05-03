@@ -1,11 +1,13 @@
-# Traceroute tool written in go
-Features:
-- Faster than the Windows integrated tracert tool, by a lot.
-- Shows ASN and RDNS information via my external API Service, so it can show RDNS even if your normal DNS blocks it.
-- Very light and easy to install, just drag mtr.exe inside your System32 folder, then you can call it from any CMD.
+# MTR - Traceroute
+![{003288F6-E30C-4BD5-A2C6-0A1F9A290291}](https://github.com/user-attachments/assets/c6e46c3c-5443-418c-a9aa-658a6a6c89ba)
+
+# Features:
+- Faster than the integrated `tracert` Tool. It achieves this by only sending 1 probe for each TTL and reduced delays.
+- Shows ASN and RDNS information via my external API Service, this allows for seeing rDNS information even when being blocked by your default DNS Server.
+- Very light and its easy to install, just drag mtr.exe inside your System32 folder, add the Firewall Rules, then you can call it from any CMD.
 
 # It doesn't work for me, what do i do?
-Sometimes you need to allow ICMP(v6) trough Windows Firewall rules:
+You need to allow ICMP(v6) trough Windows Firewall rules:
 
 `Open a CMD as Administrator in Windows`
 
@@ -13,4 +15,6 @@ Sometimes you need to allow ICMP(v6) trough Windows Firewall rules:
 
 `netsh advfirewall firewall add rule name=AllowICMPv6 protocol=ICMPv6 dir=in action=allow`
 
-Im looking to "fixing" this so this maybe works without those rules.
+# It gets detected by my Antivirus, is this malicious?
+No i ensure you it isn't malicious, many Antivirus vendors falsely flag any program written in Go as malicious.
+This Program only depends on 1 non-internal go library: [github.com/t0stbrot/go-ping](https://github.com/t0stbrot/go-ping), you can see all the source code of the library and this tool itself on here.
