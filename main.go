@@ -6,7 +6,7 @@ import (
 	"net/netip"
 	"encoding/json"
 	"net/http"
-	ping "github.com/t0stbrot/go-ping"
+	"ping"
 )
 
 type Details struct {
