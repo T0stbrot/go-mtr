@@ -61,9 +61,9 @@ func main() {
 				var res ping.PingResult
 				var info Details
 				if target.Is6() {
-					res = ping.Ping6(args[0], hops, 1000)
+					res = ping.Ping(6, args[0], hops, 1000)
 				} else {
-					res = ping.Ping4(args[0], hops, 1000)
+					res = ping.Ping(4, args[0], hops, 1000)
 				}
 				hops++
 				ip, _ := netip.ParseAddr(res.LastHop)

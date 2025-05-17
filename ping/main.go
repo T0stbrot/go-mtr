@@ -20,31 +20,45 @@ type PingResult struct {
 
 type PingProto struct {
 	IP string
+	IPF string
 	Listen string
 	Type icmp.Type
-	Conn4 ipv4.PacketConn
-	Conn6 ipv6.PacketConn
+	MessageType int
+	Conn4 *ipv4.PacketConn
+	Conn6 *ipv6.PacketConn
+}
+
+type PingBuf struct {
+	N []int
 }
 
 func Ping(ver int, destination string, ttl int, timeout int) PingResult {
 	result := PingResult{Target: destination}
 
-	proto := PingProto{IP: "ip4", Listen: "0.0.0.0", Type: ipv4.ICMPTypeEcho}
+	proto := PingProto{IP: "ip4", IPF: "ip4:icmp", Listen: "0.0.0.0", Type: ipv4.ICMPTypeEcho, MessageType: 1}
 
 	if ver == 6 {
 		proto.IP = "ip6"
+		proto.IPF = "ip6:ipv6-icmp"
 		proto.Listen = "::"
 		proto.Type = ipv6.ICMPTypeEchoRequest
+		proto.MessageType = 58
 	}
 	
-	fmt.Sprintf("%v", proto)
-
-	conn, err := net.ListenPacket(fmt.Sprintf("%s:icmp", proto.IP), proto.Listen)
+	conn, err := net.ListenPacket(fmt.Sprintf("%s", proto.IPF), proto.Listen)
 	if err != nil {
 		result.Message = fmt.Sprintf("%v", err)
 		return result
 	}
 	defer conn.Close()
+
+	if ver == 6 {
+		proto.Conn6 = ipv6.NewPacketConn(conn)
+		proto.Conn6.SetHopLimit(ttl)
+	} else {
+		proto.Conn4 = ipv4.NewPacketConn(conn)
+		proto.Conn4.SetTTL(ttl)
+	}
 
 	dst, err := net.ResolveIPAddr(proto.IP, destination)
 	if err != nil {
@@ -87,7 +101,7 @@ func Ping(ver int, destination string, ttl int, timeout int) PingResult {
 	eT := time.Now()
 	result.RTT = fmt.Sprintf("%.3f", float64(eT.Sub(sT).Microseconds())/1000)
 
-	reply, err := icmp.ParseMessage(1, buf[:n])
+	reply, err := icmp.ParseMessage(proto.MessageType, buf[:n])
 	if err != nil {
 		result.Message = fmt.Sprintf("%v", err)
 		return result
