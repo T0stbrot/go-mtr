@@ -3,7 +3,7 @@ package ping
 import (
 	"fmt"
 	"net"
-	"syscall"
+	"math/rand"
 	"time"
 
 	"golang.org/x/net/icmp"
@@ -28,7 +28,7 @@ type PingProto struct {
 	Conn6 *ipv6.PacketConn
 }
 
-func Ping(ver int, destination string, ttl int, timeout int) PingResult {
+func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult {
 	result := PingResult{Target: destination}
 
 	proto := PingProto{IP: "ip4", IPF: "ip4:icmp", Listen: "0.0.0.0", Type: ipv4.ICMPTypeEcho, MessageType: 1}
@@ -66,8 +66,8 @@ func Ping(ver int, destination string, ttl int, timeout int) PingResult {
 		Type: proto.Type,
 		Code: 0,
 		Body: &icmp.Echo{
-			ID:   syscall.Getpid() & 0xffff,
-			Seq:  1,
+			ID:   int(rand.Intn(65536)),
+			Seq:  seq,
 			Data: make([]byte, 16),
 		},
 	}
