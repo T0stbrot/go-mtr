@@ -79,7 +79,7 @@ func main() {
 					}
 				} else {
 					info = Details{
-						IP: res.Error,
+						IP: res.Message,
 						RTT: "Timeout",
 					}
 				}
