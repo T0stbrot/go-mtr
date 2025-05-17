@@ -28,10 +28,6 @@ type PingProto struct {
 	Conn6 *ipv6.PacketConn
 }
 
-type PingBuf struct {
-	N []int
-}
-
 func Ping(ver int, destination string, ttl int, timeout int) PingResult {
 	result := PingResult{Target: destination}
 
