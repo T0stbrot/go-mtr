@@ -62,11 +62,13 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 		return result
 	}
 
+	id := int(rand.Intn(65536))
+
 	icmpMessage := icmp.Message{
 		Type: proto.Type,
 		Code: 0,
 		Body: &icmp.Echo{
-			ID:   int(rand.Intn(65536)),
+			ID:   id,
 			Seq:  seq,
 			Data: make([]byte, 16),
 		},
