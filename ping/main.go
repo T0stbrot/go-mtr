@@ -63,7 +63,6 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 	}
 
 	id := int(rand.Intn(65536))
-	fmt.Printf("Gen: %d\n", id)
 
 	icmpMessage := icmp.Message{
 		Type: proto.Type,
