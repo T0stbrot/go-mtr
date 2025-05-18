@@ -63,6 +63,7 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 	}
 
 	id := int(rand.Intn(65536))
+	fmt.Printf("Gen: %d\n", id)
 
 	icmpMessage := icmp.Message{
 		Type: proto.Type,
@@ -93,7 +94,6 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 	n, addr, err := conn.ReadFrom(buf)
 	if err != nil {
 		result.Message = fmt.Sprintf("%v", err)
-		return result
 	}
 
 	eT := time.Now()
@@ -102,8 +102,11 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 	reply, err := icmp.ParseMessage(proto.MessageType, buf[:n])
 	if err != nil {
 		result.Message = fmt.Sprintf("%v", err)
-		return result
 	}
+	    if echoReply, ok := reply.Body.(*icmp.Echo); ok {
+         // This is an Echo Reply
+		 fmt.Printf("Got: %v\n", echoReply.ID)
+    }
 
 	result.LastHop = addr.String()
 	switch reply.Type {
