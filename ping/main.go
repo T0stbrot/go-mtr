@@ -93,6 +93,7 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 	n, addr, err := conn.ReadFrom(buf)
 	if err != nil {
 		result.Message = fmt.Sprintf("%v", err)
+		return result
 	}
 
 	eT := time.Now()
@@ -101,6 +102,7 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 	reply, err := icmp.ParseMessage(proto.MessageType, buf[:n])
 	if err != nil {
 		result.Message = fmt.Sprintf("%v", err)
+		return result
 	}
 
 	result.LastHop = addr.String()
