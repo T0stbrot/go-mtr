@@ -19,7 +19,7 @@ type Details struct {
 var api = &http.Client{}
 
 func details(addr string) (details Details) {
-	url := fmt.Sprintf("https://t0stbrot.net/pub-api/ip/%v", addr)
+	url := fmt.Sprintf("https://t0stbrot.net/api/public/ip/%v", addr)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println("Error creating request for API")
