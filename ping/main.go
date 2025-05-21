@@ -102,9 +102,7 @@ func Ping(ver int, destination string, ttl int, timeout int, seq int) PingResult
 	if err != nil {
 		result.Message = fmt.Sprintf("%v", err)
 	}
-	    if echoReply, ok := reply.Body.(*icmp.Echo); ok {
-         // This is an Echo Reply
-		 fmt.Printf("Got: %v\n", echoReply.ID)
+	if echoReply, ok := reply.Body.(*icmp.Echo); ok {
     }
 
 	result.LastHop = addr.String()
