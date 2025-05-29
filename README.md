@@ -6,6 +6,9 @@
 - Shows ASN and RDNS information via my external API Service, this allows for seeing rDNS information even when being blocked by your default DNS Server.
 - Very light and its easy to install, just drag mtr.exe inside your System32 folder, add the Firewall Rules, then you can call it from any CMD.
 
+# Usage
+- `go-mtr <ipv4/ipv6>`
+
 # It doesn't work for me, what do i do?
 You need to allow ICMP(v6) trough Windows Firewall rules:
 
