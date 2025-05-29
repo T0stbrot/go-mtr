@@ -20,4 +20,4 @@ You need to allow ICMP(v6) trough Windows Firewall rules:
 
 # It gets detected by my Antivirus, is this malicious?
 No i ensure you it isn't malicious, many Antivirus vendors falsely flag any program written in Go as malicious.
-This Program only depends on 1 non-internal go library: [github.com/t0stbrot/go-ping](https://github.com/t0stbrot/go-ping), you can see all the source code of the library and this tool itself on here.
+~~This Program only depends on 1 non-internal go library: [github.com/t0stbrot/go-ping](https://github.com/t0stbrot/go-ping), you can see all the source code of the library and this tool itself on here.~~ This library is now included in this Repo directly.
