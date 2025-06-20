@@ -51,6 +51,7 @@ func main() {
 		if !target.IsValid() {
 			fmt.Println("You need to provide a Valid Target Address")
 		} else {
+			var msg string
 			hops := 0
 				
 			for hops < 256 {
