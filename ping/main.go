@@ -12,10 +12,10 @@ import (
 )
 
 type PingResult struct {
-	Target  string `json:"target"`
-	LastHop string `json:"lasthop"`
-	RTT     string `json:"rtt,omitempty"`
-	Message string `json:"message,omitempty"`
+	Target  string
+	LastHop string
+	RTT     string
+	Message string
 }
 
 type PingProto struct {
