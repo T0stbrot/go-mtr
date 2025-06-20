@@ -52,8 +52,7 @@ func main() {
 			fmt.Println("You need to provide a Valid Target Address")
 		} else {
 
-			msg := fmt.Sprintf("Starting MTR to %v with 255 maximum hops", target)
-			fmt.Println(msg)
+			var msg string
 
 			hops := 0
 				
