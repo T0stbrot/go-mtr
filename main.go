@@ -51,9 +51,6 @@ func main() {
 		if !target.IsValid() {
 			fmt.Println("You need to provide a Valid Target Address")
 		} else {
-
-			var msg string
-
 			hops := 0
 				
 			for hops < 256 {
@@ -86,7 +83,7 @@ func main() {
 				if info.Hostname != "" {
 					host = "[" + info.Hostname + "]"
 				}
-				msg = fmt.Sprintf("[%2d] [%10s] [AS%6v] %15v %v", hops-1, info.RTT, info.ASN, info.IP, host)
+				msg = fmt.Sprintf("[%2d] [%10s] [AS%6v] %v %v", hops-1, info.RTT, info.ASN, info.IP, host)
 				fmt.Println(msg)
 				if res.LastHop == args[0] {
 					break
