@@ -12,7 +12,7 @@ import (
 type Details struct {
 	IP string `json:"ip"`
 	RTT string `json:"rtt"`
-	ASN int `json:"asn,omitempty"`
+	ASN string `json:"asn,omitempty"`
 	Hostname string `json:"hostname,omitempty"`
 }
 
