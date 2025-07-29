@@ -9,8 +9,6 @@
 # Usage
 - `go-mtr <ipv4/ipv6>`
 
-# If you are using Power Saving options on your Network Driver disable them for accurate results, otherwise the RTT Times are completely gambled.
-
 # It doesn't work for me, what do i do?
 You need to allow ICMP(v6) trough Windows Firewall rules:
 
