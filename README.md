@@ -9,7 +9,7 @@
 # Usage
 - `go-mtr <ipv4/ipv6>`
 
-# If using a NetAdapterCx Driver instead of NDIS the RTT times are almost completely inaccurate. I am not sure what exactly causes this or how to fix it, but it only seems to appear when using a NetAdapterCx Driver.
+# If you are using Power Saving options on your Network Driver disable them for accurate results, otherwise the RTT Times are completely gambled.
 
 # It doesn't work for me, what do i do?
 You need to allow ICMP(v6) trough Windows Firewall rules:
